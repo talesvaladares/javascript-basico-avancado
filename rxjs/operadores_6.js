@@ -1,35 +1,28 @@
 const { from, Observable } = require('rxjs');
 
-next()
-
-function createPipleOperator(next, error, complete) {
+function createPipeableOperator(operatorFn) {
   return function (source) {
-    
-    return new Observable({
-      
+    return new Observable( subscriber => {
+      const sub = operatorFn(subscriber)
       source.subscribe({
-        next(item),
-        error(error),
-        complete()
+        next: sub.next,
+        error: sub.error || (e => subscriber.error(e)),
+        complete: sub.complete || (() => subscriber.complete())
       })
     })
   }
 }
 
 function primeiro() {
-  return function(source) {
-    return Observable.create(subscriber => {
-      source.subscribe({
-        next(v) {
-          subscriber.next(v)
-          subscriber.complete()
-        }
-      })
-    })
-  }
+  return createPipeableOperator( subscriber => ({
+    next(v) {
+      subscriber.next(v)
+      subscriber.complete()
+    }
+  }))
 }
 
 
 from([1,2,3,4,5])
-  .pipe(ultimo())
+  .pipe(primeiro())
   .subscribe(console.log)
