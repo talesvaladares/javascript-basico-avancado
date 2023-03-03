@@ -1,3 +1,3 @@
 subscription => inscrição
 subscribe => se inscrever (  observer.subscribe(s => s) )
-subscriber => assinate, quem ja está inscrito, ou o interessado
+subscriber => assinante, quem ja está inscrito, ou o interessado

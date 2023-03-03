@@ -1,4 +1,3 @@
-
-  let total = 0;
-
-  for(const n of numeros) {
+// gerarNumerosEntre(1, 5, [1, 2, 4])
+//   .then(console.log)
+//   .catch(console.log)
